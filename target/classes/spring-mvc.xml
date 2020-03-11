@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/context
+         https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--     注解驱动-->
+<!--    默认会帮我们注册默认处理请求，参数和返回值的类-->
+    <mvc:annotation-driven/>
+    <!--    静态资源过滤-->
+<!--    有些请求是需要后台处理的（如：.jsp,.do等等），有些请求是不需要经过后台处理的（如：css、html、jpg、js等等文件），
+这些不需要经过后台处理的文件称为静态文件，否则动态文件。因此我们后台处理忽略静态文件。这会有人又说那我后台忽略静态文件不就完了吗。
+当然这是可以的，但是这样后台的请求次数就明显增多了。在
+我们对资源的响应速度有要求的时候，我们应该使用这种动静分离的策略去解决-->
+    <mvc:default-servlet-handler/>
+    <!--    扫描包 controller-->
+    <context:component-scan base-package="com.dahua.controller"/>
+    <!--    视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+
+    </bean>
+
+
+</beans>

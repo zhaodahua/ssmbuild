@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    本来是配置数据源的，和spring整合之后交给spring-->
+<!--    所谓数据源也就是数据的来源。它存储了所有建立数据库连接需要的信息。是提供某种所需要数据的器件或原始媒体。
+在数据源中存储了所有建立数据库连接的信息。就像通过指定文件名称可以在文件系统中找到文件一样，通过提供正确的数据源名称，
+你可以找到相应的数据库连接算是对数据库的一个抽象映射，即一个数据源对于一个数据库。
+-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.dahua.pojo"/>
+        
+    </typeAliases>
+
+<mappers>
+    <mapper class="com.dahua.dao.BookMapper"/>
+</mappers>
+
+
+
+</configuration>

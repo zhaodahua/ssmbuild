@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+
+<!--扫描service下的包-->
+    <context:component-scan base-package="com.dahua.service"/>
+<!--    将我们所有业务类注入到spring 可以通过配置，或者注解实现 2选1-->
+    <bean id="bookServiceImpl" class="com.dahua.service.BookServiceImpl">
+        <property name="bookMapper" ref="bookMapper"/>
+    </bean>
+<!--    声明式事务配置 切面编程-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--spring其实就是整合dao和service-->
+
+    <!--    aop事务支持    -->
+<!--    配置事务通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--       给那些方法配置事务-->
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+<!--    配置事务切入-->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* com.dahua.dao.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+
+
+
+
+
+</beans>
